@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ScriptIQ</title>
+</head>
+<body>
+  <h1>🎬 ScriptIQ</h1>
+
+  <textarea id="script" rows="10" cols="50"></textarea><br><br>
+
+  <button onclick="analyze()">Analyze</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function analyze() {
+      const script = document.getElementById("script").value;
+
+      const res = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ script })
+      });
+
+      const data = await res.json();
+
+      document.getElementById("output").innerText = data.result;
+    }
+  </script>
+</body>
+</html>
